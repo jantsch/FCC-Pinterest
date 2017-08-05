@@ -2,7 +2,7 @@ module.exports = {
 	'twitter': {
 		'APIKey': 'SI2sHiAs9UPFZrSbULCugsjD5',
 		'APISecret' : 'hESIkmDhvyQGl9IZTbLujusKvLvJhgR9EJWU541C2NncIiiv4t',
-		'callbackURL': 'http://127.0.0.1:3000/auth/twitter/callback'
+		'callbackURL': 'https://fcc-pinterest-rj.herokuapp.com/auth/twitter/callback'
 		},
 	'mongo': {
 		'development': {
