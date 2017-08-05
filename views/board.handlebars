@@ -1,0 +1,75 @@
+
+<div class="container" >
+  <div id="columns">
+    {{#each cards}}
+     	<div class="pin">
+			<img  src="{{imageURL}}" onError="setDefaultImg('{{id}}');" id="img-{{id}}" alt="{{title}}"/>
+			 <div class="card-block">
+		        <h4 class="card-title">{{title}}</h4>
+		        <p class="card-text">{{description}}</p>
+		       
+		      </div>
+		    <div class="card-footer text-muted">
+		    	<div class="row">
+		    		<div class="col-sm-5 ">{{userName}}</div>
+		    		<div class="col-sm-6 {{#if ../nav_settings/auth}} visible {{else}} invisible {{/if}} "><div class="likes" id="{{id}}" onClick="clickLikes(this)" ><i class="fa fa-thumbs-up like-btn" aria-hidden="true"></i><label id="likes-{{id}}"> {{likes}}</label></div></div>
+		    	</div>   
+		    	<div class="row {{#if isMine}} visible {{else}} invisible {{/if}}" onClick="clickDelete('{{id}}')">      
+		    		<div class="col-6"></div>
+  					<div class="col-6"><i class="fa fa-trash" aria-hidden="true"></i></div>
+		    	</div>  	 
+          	</div>
+		</div>
+    {{/each}}    
+  </div>
+</div>
+
+{{#unless cards}}
+	<div class="container">
+	<div class="jumbotron">
+	<h1 class="text-center">No Available Pins</h1>
+	</div>
+	</div>
+{{/unless}}
+
+{{#section 'jquery_board'}}
+	<script type="text/javascript">			
+			function clickLikes(arg) {
+
+				$.ajax({
+					url: '/like',
+					type: 'POST',
+					dataType: 'json',
+					data: {id_pin: $(arg).attr("id")},
+				})
+				.done(function(ans) {					
+					var action = JSON.stringify(ans.action);					
+					action = action.replace(/"/g,"");					
+					if(action == 'add')
+						$('#likes-'+$(arg).attr("id")).text(Number($('#likes-'+$(arg).attr("id")).text()) + 1) ;
+					else
+						$('#likes-'+$(arg).attr("id")).text(Number($('#likes-'+$(arg).attr("id")).text()) - 1) ;
+				})								
+			}
+
+			function clickDelete(id_pin) {
+
+				console.log(id_pin);
+				$.ajax({
+					url: '/pin/' + id_pin ,
+					type: 'DELETE'
+				})
+				.done(function(data, textStatus) {	
+					console.log(data)
+					console.log(data.redirect);		
+					if (data.redirect) {			            
+			            window.location.href = data.redirect;
+			        }
+				})
+			}
+
+			function setDefaultImg(id_pin) {				
+				$('#img-'+id_pin).attr("src","images/default.png");
+			}			  
+	</script>
+{{/section}}
