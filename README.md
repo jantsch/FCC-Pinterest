@@ -21,8 +21,11 @@ User Story: As an authenticated user, if I upload an image that is broken, it wi
 ### Packages
 
 "express3-handlebars":  A Handlebars view engine for Express which doesn't suck. Link: https://github.com/ericf/express-handlebars
+
 "mongoose": MongoDB object modeling designed to work in an asynchronous environment. Link: https://github.com/Automattic/mongoose
+
 "passport-twitter": Twitter authentication strategy for Passport and Node.js. Link: https://github.com/jaredhanson/passport-twitter
+
 "validator": A library of string validators and sanitizers. Link: https://github.com/chriso/validator.js/
 
 ### Startup
